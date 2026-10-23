@@ -865,8 +865,8 @@
   <!-- ==================== JAVASCRIPT & SUPABASE LOGIC ==================== -->
   <script>
     // Default Supabase Configuration (Can be replaced directly in code or via Admin Modal)
-    const DEFAULT_SUPABASE_URL = '';
-    const DEFAULT_SUPABASE_ANON_KEY = '';
+    const DEFAULT_SUPABASE_URL = 'https://hptgmlzxgydlklxmslsj.supabase.co';
+    const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_hAENf2zoQiN28PJEhvcZsA_y1tfdlQl';
 
     let supabaseClient = null;
     let selectedPaymentMethod = 'mpay';
@@ -1202,15 +1202,16 @@ CREATE POLICY "Allow public insert subscribers" ON public.subscribers FOR INSERT
       const countEl = document.getElementById('orders-count');
       let list = [...localOrders];
 
-      if (supabaseClient) {
+      const sbUrl = safeGetStorage('vivi_sb_url') || DEFAULT_SUPABASE_URL;
+      const sbKey = safeGetStorage('vivi_sb_key') || DEFAULT_SUPABASE_ANON_KEY;
+      if (sbUrl && sbKey) {
         try {
-          const { data, error } = await supabaseClient
-            .from('orders')
-            .select('*')
-            .order('created_at', { ascending: false })
-            .limit(20);
-          if (!error && data) {
-            list = data;
+          const res = await fetch(sbUrl + '/rest/v1/orders?select=*&order=created_at.desc&limit=20', {
+            headers: { 'apikey': sbKey, 'Authorization': 'Bearer ' + sbKey }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data)) list = data;
           }
         } catch (e) {}
       }
@@ -1252,9 +1253,20 @@ CREATE POLICY "Allow public insert subscribers" ON public.subscribers FOR INSERT
 
       localOrders.unshift(payload);
 
-      if (supabaseClient) {
+      const sbUrl = safeGetStorage('vivi_sb_url') || DEFAULT_SUPABASE_URL;
+      const sbKey = safeGetStorage('vivi_sb_key') || DEFAULT_SUPABASE_ANON_KEY;
+      if (sbUrl && sbKey) {
         try {
-          await supabaseClient.from('orders').insert([payload]);
+          await fetch(sbUrl + '/rest/v1/orders', {
+            method: 'POST',
+            headers: {
+              'apikey': sbKey,
+              'Authorization': 'Bearer ' + sbKey,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+          });
         } catch (err) {}
       }
 
@@ -1284,9 +1296,20 @@ CREATE POLICY "Allow public insert subscribers" ON public.subscribers FOR INSERT
 
       localSubscribers.push({ email, created_at: new Date().toISOString() });
 
-      if (supabaseClient) {
+      const sbUrl = safeGetStorage('vivi_sb_url') || DEFAULT_SUPABASE_URL;
+      const sbKey = safeGetStorage('vivi_sb_key') || DEFAULT_SUPABASE_ANON_KEY;
+      if (sbUrl && sbKey) {
         try {
-          await supabaseClient.from('subscribers').insert([{ email }]);
+          await fetch(sbUrl + '/rest/v1/subscribers', {
+            method: 'POST',
+            headers: {
+              'apikey': sbKey,
+              'Authorization': 'Bearer ' + sbKey,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({ email })
+          });
         } catch (err) {}
       }
 
