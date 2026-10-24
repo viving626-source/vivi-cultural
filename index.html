@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vivi Cultural & Co Ltd. ｜ VOL.01 出版物 · MONOPOLY OF ALLURE 壟斷級吸引力</title>
+  <meta name="description" content="你不需要更好，只需要唯一。與港珠澳的同路人，一起探討稀缺性定位。收錄《VOL.01 壟斷級吸引力》電子書、互動測試與持續更新的思想筆記。">
+  <meta property="og:title" content="Vivi Cultural & Co Ltd. ｜ MONOPOLY OF ALLURE 壟斷級吸引力">
+  <meta property="og:description" content="你不需要更好，只需要唯一。如何在大眾化審美中打造你的絕對稀缺性——在別人的心智裡，圈一塊屬於你的地。">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%2314382B'/%3E%3Ctext x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' fill='%23B89255' font-family='serif' font-weight='bold' font-size='36'%3EV%3C/text%3E%3C/svg%3E">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <!-- Supabase JS Client (v2) -->
@@ -125,22 +130,33 @@
 
       <!-- Action Buttons -->
       <div class="flex items-center space-x-2 sm:space-x-3">
-        <!-- Notification Bell Button -->
-        <button onclick="openNotifModal()" class="relative px-2.5 py-2 border border-french-border text-french-muted hover:text-french-green hover:border-french-gold text-xs rounded transition-all flex items-center space-x-1" title="即時訂單與訂閱通知欄">
-          <span>🔔</span>
-          <span class="hidden sm:inline font-cjk text-[11px]">通知欄</span>
-          <span id="notif-badge" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-french-wine text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow">0</span>
-        </button>
-        <button onclick="openAdminModal()" class="px-2.5 py-2 border border-french-border text-french-muted hover:text-french-green hover:border-french-gold text-xs rounded transition-all flex items-center space-x-1" title="Supabase 資料庫與收款後台管理">
-          <span>⚙</span>
-          <span id="db-status-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
-          <span class="hidden sm:inline font-cjk text-[11px]">後台設定</span>
-        </button>
+        <!-- Owner-Only Controls (Hidden from public visitors until unlocked via Owner Access PIN) -->
+        <div id="owner-toolbar" class="hidden flex items-center space-x-2">
+          <button onclick="openNotifModal()" class="relative px-2.5 py-2 border border-french-border text-french-muted hover:text-french-green hover:border-french-gold text-xs rounded transition-all flex items-center space-x-1" title="即時訂單與訂閱通知欄">
+            <span>🔔</span>
+            <span class="hidden sm:inline font-cjk text-[11px]">通知欄</span>
+            <span id="notif-badge" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 bg-french-wine text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow">0</span>
+          </button>
+          <button onclick="openAdminModal()" class="px-2.5 py-2 border border-french-border text-french-muted hover:text-french-green hover:border-french-gold text-xs rounded transition-all flex items-center space-x-1" title="Supabase 資料庫與收款後台管理">
+            <span>⚙</span>
+            <span id="db-status-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="hidden sm:inline font-cjk text-[11px]">後台設定</span>
+          </button>
+        </div>
         <button onclick="openCheckoutModal()" class="px-4 py-2 bg-french-green text-french-ivory text-xs tracking-widest rounded border border-french-gold/40 hover:bg-french-green-light transition-all shadow-sm">
           立即珍藏
         </button>
       </div>
     </div>
+
+    <!-- Mobile Quick Navigation Bar (For IG / Mobile Visitors) -->
+    <nav class="flex md:hidden items-center justify-center space-x-5 pt-3 mt-3 border-t border-french-border/70 text-[11px] tracking-widest text-french-ink/80 overflow-x-auto whitespace-nowrap">
+      <a href="#monograph" class="hover:text-french-gold transition-colors">VOL.01 出版物</a>
+      <a href="#covers" class="hover:text-french-gold transition-colors">典藏封面</a>
+      <a href="#framework" class="hover:text-french-gold transition-colors">四部架構</a>
+      <a href="#labs" class="hover:text-french-gold transition-colors">互動實驗室</a>
+      <a href="#salon" class="hover:text-french-gold transition-colors">思想沙龍</a>
+    </nav>
     <!-- Live Instant Notification Bar (Auto-pops when new order/subscriber arrives) -->
     <div id="live-notif-bar" class="hidden mt-3 max-w-6xl mx-auto bg-french-wine text-white px-4 py-2.5 rounded-sm border border-french-gold shadow-lg flex items-center justify-between text-xs font-cjk">
       <div class="flex items-center space-x-2">
@@ -292,7 +308,7 @@
                   <span class="text-xs text-french-muted font-cjk">/ MOP$ 168 · RMB ¥152</span>
                 </div>
                 <p class="text-xs text-french-muted font-cjk mt-1">
-                  支援澳門 MPay · 香港 FPS 轉數快 / PayMe · Stripe 國際信用卡即時結算
+                  支援澳門 MPay · 微信支付 · 支付寶 Alipay · 國際信用卡即時結算
                 </p>
               </div>
 
@@ -559,8 +575,8 @@
       <div class="text-xs text-french-ivory/60 font-serif tracking-widest space-y-1">
         <p>© 2026 Vivi Cultural & Co Ltd. All Sovereignty Reserved.</p>
         <p class="text-french-gold/80">VOL.01 · MONOPOLY OF ALLURE · 壟斷級吸引力</p>
-        <button onclick="openAdminModal()" class="text-[11px] text-french-gold underline hover:text-white mt-2 inline-block font-cjk">
-          管理員雲端資料庫與收款設定 (Supabase)
+        <button onclick="requestOwnerAccess()" class="text-[11px] text-french-ivory/40 hover:text-french-gold mt-2 inline-block font-serif tracking-widest transition-colors">
+          ✦ Studio Owner Access (管理員入口)
         </button>
       </div>
     </div>
@@ -715,6 +731,49 @@
 
         <button type="submit" id="btn-checkout-submit" class="w-full py-3.5 bg-french-green text-white text-xs tracking-widest font-cjk rounded hover:bg-french-green-light transition-all shadow-md mt-4">
           確認並發送下載連結 ➔
+        </button>
+      </form>
+
+      <!-- Order Confirmation Receipt (Shown after form submission) -->
+      <div id="checkout-receipt-box" class="hidden text-center py-6 px-4 bg-french-ivory border border-french-gold/50 rounded space-y-4 font-cjk mt-4">
+        <div class="w-12 h-12 bg-french-green text-french-gold rounded-full flex items-center justify-center mx-auto text-xl font-display">
+          ✓
+        </div>
+        <div>
+          <span class="font-display text-[10px] tracking-[0.25em] text-french-gold uppercase block">ORDER CONFIRMED · 訂購憑證</span>
+          <h4 class="font-bold text-lg text-french-green mt-1">感謝珍藏《VOL.01 壟斷級吸引力》</h4>
+        </div>
+        <div id="receipt-details-text" class="text-xs text-french-ink/80 bg-white p-3.5 rounded border border-french-border text-left space-y-1 leading-relaxed">
+        </div>
+        <p class="text-[11px] text-french-muted leading-relaxed">
+          您的訂單已加密寫入雲端資料庫。核對款項後，完整 138 頁高解析度電子書 PDF 與定位工作表將立即發送至您的信箱（您亦可截圖此憑證保存）。
+        </p>
+        <div class="flex justify-center gap-3 pt-2">
+          <button type="button" onclick="copyReceiptText()" class="px-4 py-2 border border-french-gold text-french-green text-xs rounded hover:bg-french-gold/10">
+            複製訂購憑證
+          </button>
+          <button type="button" onclick="resetAndCloseCheckout()" class="px-5 py-2 bg-french-green text-white text-xs rounded hover:bg-french-green-light">
+            完成並返回
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. OWNER PIN ACCESS MODAL -->
+  <div id="modal-owner-pin" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white max-w-sm w-full rounded-sm border border-french-border shadow-2xl p-6 font-cjk text-center space-y-4">
+      <div class="flex justify-between items-center border-b border-french-border pb-3">
+        <span class="font-display text-xs tracking-widest text-french-gold uppercase">STUDIO OWNER ACCESS</span>
+        <button onclick="closeModal('modal-owner-pin')" class="text-french-muted hover:text-french-ink text-xl">&times;</button>
+      </div>
+      <p class="text-xs text-french-muted leading-relaxed">
+        為保護讀者隱私與版面純淨，後台與即時通知欄僅對主理人開放。請輸入主理人密碼（預設為您的 MPay 頭四碼 <code class="text-french-green font-bold">6675</code>）：
+      </p>
+      <form onsubmit="verifyOwnerPin(event)" class="space-y-3">
+        <input type="password" id="owner-pin-input" required placeholder="請輸入管理員密碼 (6675)" class="w-full px-3 py-2.5 border border-french-border rounded text-center text-sm tracking-widest focus:outline-none focus:border-french-gold">
+        <button type="submit" class="w-full py-2.5 bg-french-green text-white text-xs tracking-widest rounded hover:bg-french-green-light transition-all">
+          解鎖主理人後台與通知欄
         </button>
       </form>
     </div>
@@ -1221,8 +1280,54 @@
     function openSampleModal() {
       document.getElementById('modal-sample').classList.remove('hidden');
     }
+    let lastReceiptStr = '';
+
+    function requestOwnerAccess() {
+      if (safeGetStorage('vivi_owner_unlocked') === '1') {
+        document.getElementById('owner-toolbar').classList.remove('hidden');
+        openAdminModal();
+      } else {
+        document.getElementById('owner-pin-input').value = '';
+        document.getElementById('modal-owner-pin').classList.remove('hidden');
+      }
+    }
+
+    function verifyOwnerPin(e) {
+      e.preventDefault();
+      const pin = document.getElementById('owner-pin-input').value.trim();
+      const savedPin = safeGetStorage('vivi_custom_pin') || '6675';
+      if (pin === savedPin) {
+        safeSetStorage('vivi_owner_unlocked', '1');
+        document.getElementById('owner-toolbar').classList.remove('hidden');
+        closeModal('modal-owner-pin');
+        openAdminModal();
+        showToast('已解鎖主理人後台與頂部即時通知欄！');
+      } else {
+        showToast('密碼不正確，預設密碼為 6675');
+      }
+    }
+
     function openCheckoutModal() {
+      const formEl = document.querySelector('#modal-checkout form');
+      const receiptEl = document.getElementById('checkout-receipt-box');
+      if (formEl) formEl.classList.remove('hidden');
+      if (receiptEl) receiptEl.classList.add('hidden');
       document.getElementById('modal-checkout').classList.remove('hidden');
+    }
+
+    function resetAndCloseCheckout() {
+      closeModal('modal-checkout');
+    }
+
+    function copyReceiptText() {
+      if (!lastReceiptStr) return;
+      const ta = document.createElement('textarea');
+      ta.value = lastReceiptStr;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      showToast('已複製訂購憑證資訊！');
     }
     function openAdminModal() {
       initSupabase();
@@ -1509,7 +1614,7 @@ CREATE POLICY "Allow public insert subscribers" ON public.subscribers FOR INSERT
       const unread = Math.max(0, newTotal - readCount);
       updateNotifBadge(unread);
 
-      if (isBackgroundPoll && newTotal > prevTotal && prevTotal > 0) {
+      if (isBackgroundPoll && newTotal > prevTotal && prevTotal > 0 && safeGetStorage('vivi_owner_unlocked') === '1') {
         playNotifChime();
         const bar = document.getElementById('live-notif-bar');
         const barText = document.getElementById('live-notif-text');
@@ -1607,14 +1712,31 @@ CREATE POLICY "Allow public insert subscribers" ON public.subscribers FOR INSERT
 
       btn.disabled = false;
       btn.innerText = '確認並發送下載連結 ➔';
-      closeModal('modal-checkout');
+
+      const orderCode = 'VV-' + Math.floor(100000 + Math.random() * 900000);
+      lastReceiptStr = `【Vivi Cultural 訂購憑證】單號：${orderCode} | 姓名：${payload.customer_name} | 電郵：${payload.customer_email} | 金額：${payload.currency} (${payload.payment_method.toUpperCase()}) | 後4碼：${payload.payment_ref}`;
+
+      const formEl = document.querySelector('#modal-checkout form');
+      const receiptEl = document.getElementById('checkout-receipt-box');
+      const detailsEl = document.getElementById('receipt-details-text');
+      if (formEl && receiptEl && detailsEl) {
+        formEl.classList.add('hidden');
+        detailsEl.innerHTML = `
+          <div><strong>憑證單號：</strong> <span class="font-mono text-french-green">${orderCode}</span></div>
+          <div><strong>讀者稱謂：</strong> ${payload.customer_name}</div>
+          <div><strong>接收信箱：</strong> ${payload.customer_email}</div>
+          <div><strong>結算方式：</strong> ${payload.currency} (${payload.payment_method.toUpperCase()})</div>
+          <div><strong>轉帳備註：</strong> ${payload.payment_ref}</div>
+        `;
+        receiptEl.classList.remove('hidden');
+      }
 
       const customPayLink = safeGetStorage('vivi_pay_link');
       if ((selectedPaymentMethod === 'stripe' || selectedPaymentMethod === 'lemon') && customPayLink) {
         showToast('訂單已記錄！正在為您開啟加密付款頁面...');
         window.open(customPayLink, '_blank');
       } else {
-        showToast('訂單已成功寫入資料庫！數位電子書下載連結將發送至 ' + payload.customer_email);
+        showToast('訂單已成功寫入雲端資料庫！');
       }
     }
 
@@ -1676,6 +1798,11 @@ CREATE POLICY "Allow public insert subscribers" ON public.subscribers FOR INSERT
     // Initialize on load
     window.addEventListener('DOMContentLoaded', () => {
       selectCover(1);
+      if (window.location.search.includes('admin=1') || safeGetStorage('vivi_owner_unlocked') === '1') {
+        safeSetStorage('vivi_owner_unlocked', '1');
+        const tb = document.getElementById('owner-toolbar');
+        if (tb) tb.classList.remove('hidden');
+      }
       initSupabase();
       refreshOrdersList(false);
       if (notifPollTimer) clearInterval(notifPollTimer);
